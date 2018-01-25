@@ -18,7 +18,7 @@ namespace entitas
   class Pool
   {
   public:
-    Pool(const unsigned int startCreationIndex = 1);
+    Pool(const unsigned int startCreationIndex = 0);
     ~Pool();
 
     auto CreateEntity() -> EntityPtr;

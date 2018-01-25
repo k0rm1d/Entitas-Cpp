@@ -11,10 +11,11 @@
 namespace entitas
 {
   Pool::Pool(const unsigned int startCreationIndex)
+    : mCreationIndex(startCreationIndex)
+    , mOnEntityReleasedCache(std::bind(&Pool::OnEntityReleased, this, std::placeholders::_1))
   {
-    mCreationIndex = startCreationIndex;
-    mOnEntityReleasedCache = std::bind(&Pool::OnEntityReleased, this, std::placeholders::_1);
   }
+
 
   Pool::~Pool()
   {
@@ -64,7 +65,7 @@ namespace entitas
 
     entity->SetInstance(entity);
     entity->mIsEnabled = true;
-    entity->mUuid = mCreationIndex++;
+    entity->mUuid = ++mCreationIndex;
 
     mEntities.insert(entity);
     mEntitiesCache.clear();
