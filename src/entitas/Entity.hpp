@@ -20,6 +20,7 @@ namespace entitas
 
   public:
     Entity(std::map<ComponentId, std::stack<IComponent*>>* componentPools);
+    virtual ~Entity() = default;
 
     template <typename T, typename... TArgs> inline auto Add(TArgs&&... args) -> EntityPtr;
     template <typename T> inline auto Remove() -> EntityPtr;
