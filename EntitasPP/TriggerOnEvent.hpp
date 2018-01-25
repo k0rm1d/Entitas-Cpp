@@ -9,8 +9,8 @@
 
 namespace EntitasPP
 {
-struct TriggerOnEvent
-{
+  struct TriggerOnEvent
+  {
   public:
     TriggerOnEvent(const Matcher trigger, const GroupEventType eventType)
     {
@@ -20,5 +20,5 @@ struct TriggerOnEvent
 
     Matcher trigger;
     GroupEventType eventType;
-};
+  };
 }

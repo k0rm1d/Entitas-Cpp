@@ -9,17 +9,17 @@
 
 namespace EntitasPP
 {
-typedef unsigned int ComponentId;
-typedef std::vector<ComponentId> ComponentIdList;
+  typedef unsigned int ComponentId;
+  typedef std::vector<ComponentId> ComponentIdList;
 
-struct ComponentTypeId
-{
+  struct ComponentTypeId
+  {
   public:
     template<typename T>
     static const ComponentId Get()
     {
       static_assert((std::is_base_of<IComponent, T>::value && ! std::is_same<IComponent, T>::value),
-        "Class type must be derived from IComponent");
+                    "Class type must be derived from IComponent");
 
       static ComponentId id = mCounter++;
       return id;
@@ -32,5 +32,5 @@ struct ComponentTypeId
 
   private:
     static unsigned int mCounter;
-};
+  };
 }

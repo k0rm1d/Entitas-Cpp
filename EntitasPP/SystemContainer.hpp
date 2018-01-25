@@ -9,8 +9,8 @@
 
 namespace EntitasPP
 {
-class SystemContainer : public IInitializeSystem, public IExecuteSystem, public IFixedExecuteSystem
-{
+  class SystemContainer : public IInitializeSystem, public IExecuteSystem, public IFixedExecuteSystem
+  {
   public:
     SystemContainer() = default;
 
@@ -29,11 +29,11 @@ class SystemContainer : public IInitializeSystem, public IExecuteSystem, public 
     std::vector<std::shared_ptr<IInitializeSystem>> mInitializeSystems;
     std::vector<std::shared_ptr<IExecuteSystem>> mExecuteSystems;
     std::vector<std::shared_ptr<IFixedExecuteSystem>> mFixedExecuteSystems;
-};
+  };
 
-template <typename T>
-auto SystemContainer::Add() -> SystemContainer*
-{
-  return Add(std::shared_ptr<T>(new T()));
-}
+  template <typename T>
+  auto SystemContainer::Add() -> SystemContainer*
+  {
+    return Add(std::shared_ptr<T>(new T()));
+  }
 }

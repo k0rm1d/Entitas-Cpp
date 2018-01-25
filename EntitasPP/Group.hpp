@@ -11,11 +11,11 @@
 
 namespace EntitasPP
 {
-class GroupObserver;
+  class GroupObserver;
 
-class Group
-{
-  friend class Pool;
+  class Group
+  {
+    friend class Pool;
 
   public:
     Group(const Matcher& matcher);
@@ -53,5 +53,5 @@ class Group
     Matcher mMatcher;
     std::unordered_set<EntityPtr> mEntities;
     std::vector<EntityPtr> mEntitiesCache;
-};
+  };
 }

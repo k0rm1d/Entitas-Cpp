@@ -11,19 +11,19 @@
 
 namespace EntitasPP
 {
-class Pool;
+  class Pool;
 
-class ISystem
-{
+  class ISystem
+  {
   protected:
     ISystem() = default;
 
   public:
     virtual ~ISystem() = default;
-};
+  };
 
-class ISetPoolSystem
-{
+  class ISetPoolSystem
+  {
   protected:
     ISetPoolSystem() = default;
 
@@ -31,10 +31,10 @@ class ISetPoolSystem
     virtual ~ISetPoolSystem() = default;
 
     virtual void SetPool(Pool* pool) = 0;
-};
+  };
 
-class IInitializeSystem
-{
+  class IInitializeSystem
+  {
   protected:
     IInitializeSystem() = default;
 
@@ -42,10 +42,10 @@ class IInitializeSystem
     virtual ~IInitializeSystem() = default;
 
     virtual void Initialize() = 0;
-};
+  };
 
-class IExecuteSystem : public ISystem
-{
+  class IExecuteSystem : public ISystem
+  {
   protected:
     IExecuteSystem() = default;
 
@@ -53,10 +53,10 @@ class IExecuteSystem : public ISystem
     virtual ~IExecuteSystem() = default;
 
     virtual void Execute() = 0;
-};
+  };
 
-class IFixedExecuteSystem : public ISystem
-{
+  class IFixedExecuteSystem : public ISystem
+  {
   protected:
     IFixedExecuteSystem() = default;
 
@@ -64,10 +64,10 @@ class IFixedExecuteSystem : public ISystem
     virtual ~IFixedExecuteSystem() = default;
 
     virtual void FixedExecute() = 0;
-};
+  };
 
-class IReactiveExecuteSystem : public ISystem
-{
+  class IReactiveExecuteSystem : public ISystem
+  {
   protected:
     IReactiveExecuteSystem() = default;
 
@@ -75,45 +75,45 @@ class IReactiveExecuteSystem : public ISystem
     virtual ~IReactiveExecuteSystem() = default;
 
     virtual void Execute(std::vector<EntityPtr> entities) = 0;
-};
+  };
 
-class IReactiveSystem : public IReactiveExecuteSystem
-{
+  class IReactiveSystem : public IReactiveExecuteSystem
+  {
   public:
     virtual ~IReactiveSystem() = default;
 
     TriggerOnEvent trigger;
-};
+  };
 
-class IMultiReactiveSystem : public IReactiveExecuteSystem
-{
+  class IMultiReactiveSystem : public IReactiveExecuteSystem
+  {
   public:
     virtual ~IMultiReactiveSystem() = default;
 
     std::vector<TriggerOnEvent> triggers;
-};
+  };
 
-class IEnsureComponents
-{
+  class IEnsureComponents
+  {
   protected:
     IEnsureComponents() = default;
 
   public:
     Matcher ensureComponents;
-};
+  };
 
-class IExcludeComponents
-{
+  class IExcludeComponents
+  {
   protected:
     IExcludeComponents() = default;
 
   public:
     Matcher excludeComponents;
-};
+  };
 
-class IClearReactiveSystem
-{
+  class IClearReactiveSystem
+  {
   protected:
     IClearReactiveSystem() = default;
-};
+  };
 }

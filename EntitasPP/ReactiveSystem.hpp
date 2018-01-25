@@ -9,8 +9,8 @@
 
 namespace EntitasPP
 {
-class ReactiveSystem : public IExecuteSystem
-{
+  class ReactiveSystem : public IExecuteSystem
+  {
   public:
     ReactiveSystem(Pool* pool, std::shared_ptr<IReactiveSystem> subsystem);
     ReactiveSystem(Pool* pool, std::shared_ptr<IMultiReactiveSystem> subsystem);
@@ -30,5 +30,5 @@ class ReactiveSystem : public IExecuteSystem
     Matcher mExcludeComponents;
     bool mClearAfterExecute{false};
     std::vector<EntityPtr> mEntityBuffer;
-};
+  };
 }

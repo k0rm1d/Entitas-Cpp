@@ -6,10 +6,10 @@
 
 namespace EntitasPP
 {
-enum class GroupEventType
-{
-  OnEntityAdded,
-  OnEntityRemoved,
-  OnEntityAddedOrRemoved
-};
+  enum class GroupEventType
+  {
+    OnEntityAdded,
+    OnEntityRemoved,
+    OnEntityAddedOrRemoved
+  };
 }

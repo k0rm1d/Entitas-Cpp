@@ -13,10 +13,10 @@
 
 namespace EntitasPP
 {
-class ISystem;
+  class ISystem;
 
-class Pool
-{
+  class Pool
+  {
   public:
     Pool(const unsigned int startCreationIndex = 1);
     ~Pool();
@@ -68,11 +68,11 @@ class Pool
 
     std::vector<EntityPtr> mEntitiesCache;
     std::function<void(Entity*)> mOnEntityReleasedCache;
-};
+  };
 
-template <typename T>
-auto Pool::CreateSystem() -> std::shared_ptr<ISystem>
-{
-  return CreateSystem(std::dynamic_pointer_cast<ISystem>(std::shared_ptr<T>(new T())));
-}
+  template <typename T>
+  auto Pool::CreateSystem() -> std::shared_ptr<ISystem>
+  {
+    return CreateSystem(std::dynamic_pointer_cast<ISystem>(std::shared_ptr<T>(new T())));
+  }
 }

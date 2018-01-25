@@ -6,11 +6,11 @@
 
 namespace EntitasPP
 {
-class IComponent
-{
-  friend class Entity;
+  class IComponent
+  {
+    friend class Entity;
 
   protected:
     IComponent() = default;
-};
+  };
 }

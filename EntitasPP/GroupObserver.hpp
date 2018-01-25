@@ -13,10 +13,10 @@
 
 namespace EntitasPP
 {
-class Group;
+  class Group;
 
-class GroupObserver
-{
+  class GroupObserver
+  {
   public:
     GroupObserver(std::shared_ptr<Group> group, const GroupEventType eventType);
     GroupObserver(std::vector<std::shared_ptr<Group>> groups, std::vector<GroupEventType> eventTypes);
@@ -34,5 +34,5 @@ class GroupObserver
     std::vector<std::shared_ptr<Group>> mGroups;
     std::vector<GroupEventType> mEventTypes;
     std::function<void(std::shared_ptr<Group>, EntityPtr, ComponentId, IComponent*)> mAddEntityCache;
-};
+  };
 }
