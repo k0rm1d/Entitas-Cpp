@@ -11,14 +11,14 @@ namespace EntitasPP
 {
 struct TriggerOnEvent
 {
-	public:
-		TriggerOnEvent(const Matcher trigger, const GroupEventType eventType)
-		{
-			this->trigger = trigger;
-			this->eventType = eventType;
-		}
+  public:
+    TriggerOnEvent(const Matcher trigger, const GroupEventType eventType)
+    {
+      this->trigger = trigger;
+      this->eventType = eventType;
+    }
 
-		Matcher trigger;
-		GroupEventType eventType;
+    Matcher trigger;
+    GroupEventType eventType;
 };
 }

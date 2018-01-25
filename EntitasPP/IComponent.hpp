@@ -8,9 +8,9 @@ namespace EntitasPP
 {
 class IComponent
 {
-	friend class Entity;
+  friend class Entity;
 
-	protected:
-		IComponent() = default;
+  protected:
+    IComponent() = default;
 };
 }

@@ -14,46 +14,46 @@ typedef std::vector<Matcher> MatcherList;
 
 class Matcher
 {
-	public:
-		Matcher() = default;
-		static auto AllOf(const ComponentIdList indices) -> const Matcher;
-		static auto AllOf(const MatcherList matchers) -> const Matcher;
-		static auto AnyOf(const ComponentIdList indices) -> const Matcher;
-		static auto AnyOf(const MatcherList matchers) -> const Matcher;
-		static auto NoneOf(const ComponentIdList indices) -> const Matcher;
-		static auto NoneOf(const MatcherList matchers) -> const Matcher;
+  public:
+    Matcher() = default;
+    static auto AllOf(const ComponentIdList indices) -> const Matcher;
+    static auto AllOf(const MatcherList matchers) -> const Matcher;
+    static auto AnyOf(const ComponentIdList indices) -> const Matcher;
+    static auto AnyOf(const MatcherList matchers) -> const Matcher;
+    static auto NoneOf(const ComponentIdList indices) -> const Matcher;
+    static auto NoneOf(const MatcherList matchers) -> const Matcher;
 
-		bool IsEmpty() const;
-		bool Matches(const EntityPtr& entity);
-		auto GetIndices() -> const ComponentIdList;
-		auto GetAllOfIndices() const -> const ComponentIdList;
-		auto GetAnyOfIndices() const -> const ComponentIdList;
-		auto GetNoneOfIndices() const -> const ComponentIdList;
+    bool IsEmpty() const;
+    bool Matches(const EntityPtr& entity);
+    auto GetIndices() -> const ComponentIdList;
+    auto GetAllOfIndices() const -> const ComponentIdList;
+    auto GetAnyOfIndices() const -> const ComponentIdList;
+    auto GetNoneOfIndices() const -> const ComponentIdList;
 
-		auto GetHashCode() const -> unsigned int;
-		bool CompareIndices(const Matcher& matcher) const;
+    auto GetHashCode() const -> unsigned int;
+    bool CompareIndices(const Matcher& matcher) const;
 
-		auto OnEntityAdded() -> const TriggerOnEvent;
-		auto OnEntityRemoved() -> const TriggerOnEvent;
-		auto OnEntityAddedOrRemoved() -> const TriggerOnEvent;
+    auto OnEntityAdded() -> const TriggerOnEvent;
+    auto OnEntityRemoved() -> const TriggerOnEvent;
+    auto OnEntityAddedOrRemoved() -> const TriggerOnEvent;
 
-		bool operator ==(const Matcher right) const;
+    bool operator ==(const Matcher right) const;
 
-	protected:
-		void CalculateHash();
+  protected:
+    void CalculateHash();
 
-		ComponentIdList mIndices;
-		ComponentIdList mAllOfIndices;
-		ComponentIdList mAnyOfIndices;
-		ComponentIdList mNoneOfIndices;
+    ComponentIdList mIndices;
+    ComponentIdList mAllOfIndices;
+    ComponentIdList mAnyOfIndices;
+    ComponentIdList mNoneOfIndices;
 
-	private:
-		auto ApplyHash(unsigned int hash, const ComponentIdList indices, int i1, int i2) const -> unsigned int;
-		auto MergeIndices() const -> ComponentIdList;
-		static auto MergeIndices(MatcherList matchers) -> ComponentIdList;
-		static auto DistinctIndices(ComponentIdList indices) -> ComponentIdList;
+  private:
+    auto ApplyHash(unsigned int hash, const ComponentIdList indices, int i1, int i2) const -> unsigned int;
+    auto MergeIndices() const -> ComponentIdList;
+    static auto MergeIndices(MatcherList matchers) -> ComponentIdList;
+    static auto DistinctIndices(ComponentIdList indices) -> ComponentIdList;
 
-		unsigned int mCachedHash{0};
+    unsigned int mCachedHash{0};
 };
 }
 
@@ -62,10 +62,10 @@ namespace std
 template <>
 struct hash<EntitasPP::Matcher>
 {
-	std::size_t operator()(const EntitasPP::Matcher& matcher) const
-	{
-		return hash<unsigned int>()(matcher.GetHashCode());
-	}
+  std::size_t operator()(const EntitasPP::Matcher& matcher) const
+  {
+    return hash<unsigned int>()(matcher.GetHashCode());
+  }
 };
 }
 

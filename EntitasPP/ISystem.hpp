@@ -15,105 +15,105 @@ class Pool;
 
 class ISystem
 {
-	protected:
-		ISystem() = default;
+  protected:
+    ISystem() = default;
 
-	public:
-		virtual ~ISystem() = default;
+  public:
+    virtual ~ISystem() = default;
 };
 
 class ISetPoolSystem
 {
-	protected:
-		ISetPoolSystem() = default;
+  protected:
+    ISetPoolSystem() = default;
 
-	public:
-		virtual ~ISetPoolSystem() = default;
+  public:
+    virtual ~ISetPoolSystem() = default;
 
-		virtual void SetPool(Pool* pool) = 0;
+    virtual void SetPool(Pool* pool) = 0;
 };
 
 class IInitializeSystem
 {
-	protected:
-		IInitializeSystem() = default;
+  protected:
+    IInitializeSystem() = default;
 
-	public:
-		virtual ~IInitializeSystem() = default;
+  public:
+    virtual ~IInitializeSystem() = default;
 
-		virtual void Initialize() = 0;
+    virtual void Initialize() = 0;
 };
 
 class IExecuteSystem : public ISystem
 {
-	protected:
-		IExecuteSystem() = default;
+  protected:
+    IExecuteSystem() = default;
 
-	public:
-		virtual ~IExecuteSystem() = default;
+  public:
+    virtual ~IExecuteSystem() = default;
 
-		virtual void Execute() = 0;
+    virtual void Execute() = 0;
 };
 
 class IFixedExecuteSystem : public ISystem
 {
-	protected:
-		IFixedExecuteSystem() = default;
+  protected:
+    IFixedExecuteSystem() = default;
 
-	public:
-		virtual ~IFixedExecuteSystem() = default;
+  public:
+    virtual ~IFixedExecuteSystem() = default;
 
-		virtual void FixedExecute() = 0;
+    virtual void FixedExecute() = 0;
 };
 
 class IReactiveExecuteSystem : public ISystem
 {
-	protected:
-		IReactiveExecuteSystem() = default;
+  protected:
+    IReactiveExecuteSystem() = default;
 
-	public:
-		virtual ~IReactiveExecuteSystem() = default;
+  public:
+    virtual ~IReactiveExecuteSystem() = default;
 
-		virtual void Execute(std::vector<EntityPtr> entities) = 0;
+    virtual void Execute(std::vector<EntityPtr> entities) = 0;
 };
 
 class IReactiveSystem : public IReactiveExecuteSystem
 {
-	public:
-		virtual ~IReactiveSystem() = default;
+  public:
+    virtual ~IReactiveSystem() = default;
 
-		TriggerOnEvent trigger;
+    TriggerOnEvent trigger;
 };
 
 class IMultiReactiveSystem : public IReactiveExecuteSystem
 {
-	public:
-		virtual ~IMultiReactiveSystem() = default;
+  public:
+    virtual ~IMultiReactiveSystem() = default;
 
-		std::vector<TriggerOnEvent> triggers;
+    std::vector<TriggerOnEvent> triggers;
 };
 
 class IEnsureComponents
 {
-	protected:
-		IEnsureComponents() = default;
+  protected:
+    IEnsureComponents() = default;
 
-	public:
-		Matcher ensureComponents;
+  public:
+    Matcher ensureComponents;
 };
 
 class IExcludeComponents
 {
-	protected:
-		IExcludeComponents() = default;
+  protected:
+    IExcludeComponents() = default;
 
-	public:
-		Matcher excludeComponents;
+  public:
+    Matcher excludeComponents;
 };
 
 class IClearReactiveSystem
 {
-	protected:
-		IClearReactiveSystem() = default;
+  protected:
+    IClearReactiveSystem() = default;
 };
 }
