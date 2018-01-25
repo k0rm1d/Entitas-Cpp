@@ -7,10 +7,11 @@
 
 #pragma once
 
-#include <mutex>
+#include <functional>
 #include <list>
-#include <vector>
 #include <memory>
+#include <mutex>
+#include <vector>
 
 namespace EntitasPP
 {
