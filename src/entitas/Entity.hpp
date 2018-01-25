@@ -12,7 +12,7 @@
 namespace entitas
 {
   class Entity;
-  typedef std::shared_ptr<Entity> EntityPtr;
+  using EntityPtr = std::shared_ptr<Entity>;
 
   class Entity
   {
