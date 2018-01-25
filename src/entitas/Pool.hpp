@@ -11,7 +11,7 @@
 #include <unordered_map>
 #include <map>
 
-namespace EntitasPP
+namespace entitas
 {
   class ISystem;
 

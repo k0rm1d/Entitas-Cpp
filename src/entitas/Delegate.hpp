@@ -13,7 +13,7 @@
 #include <mutex>
 #include <vector>
 
-namespace EntitasPP
+namespace entitas
 {
   template<typename>
   class Delegate;

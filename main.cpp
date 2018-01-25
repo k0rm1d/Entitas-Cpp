@@ -7,7 +7,7 @@
 #include <entitas/Pool.hpp>
 #include <iostream>
 
-using namespace EntitasPP;
+using namespace entitas;
 
 class DemoComponent : public IComponent {
 	public:

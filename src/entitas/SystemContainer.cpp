@@ -6,7 +6,7 @@
 #include "ReactiveSystem.hpp"
 #include <memory>
 
-namespace EntitasPP
+namespace entitas
 {
   auto SystemContainer::Add(std::shared_ptr<ISystem> system) -> SystemContainer*
   {
