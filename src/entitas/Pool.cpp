@@ -56,9 +56,9 @@ namespace entitas
     }
     else
     {
-      entity = EntityPtr(new Entity(&mComponentPools), [](void* entity)
+      entity = EntityPtr(new Entity(&mComponentPools), [](Entity* entity)
                          {
-                           (static_cast<Entity*>(entity)->OnEntityReleased(static_cast<Entity*>(entity)));
+                           entity->OnEntityReleased(entity);
                          });
     }
 
