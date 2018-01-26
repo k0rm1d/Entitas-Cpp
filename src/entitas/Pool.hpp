@@ -17,6 +17,9 @@ namespace entitas
 
   class Pool
   {
+    /*------------.
+    | Exceptions. |
+    `------------*/
   public:
     class EntitiesRetained
       : public std::runtime_error
@@ -32,6 +35,9 @@ namespace entitas
       UnknownEntity(const EntityWeakPtr);
     };
 
+    /*---------.
+    | Methods. |
+    `---------*/
   public:
     Pool(const unsigned int startCreationIndex = 0,
          const bool reuseEntities = false);
@@ -60,6 +66,10 @@ namespace entitas
     auto CreateSystem(std::shared_ptr<ISystem> system) -> std::shared_ptr<ISystem>;
     template <typename T> inline auto CreateSystem() -> std::shared_ptr<ISystem>;
 
+    /*-------------------.
+    | Public attributes. |
+    `-------------------*/
+  public:
     using PoolChanged = Delegate<void(Pool* pool, EntityPtr entity)>;
     using GroupChanged = Delegate<void(Pool* pool, std::shared_ptr<Group> group)>;
 
@@ -69,11 +79,18 @@ namespace entitas
     GroupChanged OnGroupCreated;
     GroupChanged OnGroupCleared;
 
+    /*-----------------.
+    | Private methods. |
+    `-----------------*/
   private:
     void UpdateGroupsComponentAddedOrRemoved(EntityPtr entity, ComponentId index, IComponent* component);
     void UpdateGroupsComponentReplaced(EntityPtr entity, ComponentId index, IComponent* previousComponent, IComponent* newComponent);
     void OnEntityReleased(Entity* entity);
 
+    /*--------------------.
+    | Private attributes. |
+    `--------------------*/
+  private:
     unsigned int mCreationIndex;
     bool mReuseEntities;
     std::unordered_set<EntityPtr> mEntities;
