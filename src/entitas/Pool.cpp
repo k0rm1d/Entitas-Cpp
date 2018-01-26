@@ -16,8 +16,10 @@ namespace entitas
     : std::runtime_error("Error, pool detected "s + std::to_string(count) + " retained entities although all entities got destroyed. Did you release all entities?")
   {}
 
-  Pool::Pool(const unsigned int startCreationIndex)
+  Pool::Pool(const unsigned int startCreationIndex,
+             const bool reuseEntities)
     : mCreationIndex(startCreationIndex)
+    , mReuseEntities(reuseEntities)
     , mOnEntityReleasedCache(std::bind(&Pool::OnEntityReleased, this, std::placeholders::_1))
   {
   }
@@ -55,17 +57,22 @@ namespace entitas
   auto Pool::CreateEntity() -> EntityPtr
   {
     EntityPtr entity;
-
-    if(mReusableEntities.size() > 0)
+    if(mReusableEntities.size() > 0 && ReuseEntities())
     {
-      entity = EntityPtr(mReusableEntities.top());
+      entity = EntityPtr(mReusableEntities.top(),
+                         [this](Entity* entity)
+                         {
+                           entity->OnEntityReleased(entity);
+                         });
       mReusableEntities.pop();
     }
     else
     {
-      entity = EntityPtr(new Entity(&mComponentPools), [](Entity* entity)
+      entity = EntityPtr(new Entity(&mComponentPools), [this](Entity* entity)
                          {
                            entity->OnEntityReleased(entity);
+                           if (!ReuseEntities())
+                             delete entity;
                          });
     }
 
@@ -93,7 +100,6 @@ namespace entitas
     entity->OnEntityReleased += mOnEntityReleasedCache;
 
     OnEntityCreated(this, entity);
-
     return entity;
   }
 
@@ -104,9 +110,7 @@ namespace entitas
 
   void Pool::DestroyEntity(EntityPtr entity)
   {
-    auto removed = mEntities.erase(entity);
-
-    if (! removed)
+    if (! mEntities.erase(entity))
     {
       throw std::runtime_error("Error, cannot destroy entity. Pool does not contain entity.");
     }
@@ -117,7 +121,7 @@ namespace entitas
     entity->Destroy();
     OnEntityDestroyed(this, entity);
 
-    if (entity.use_count() == 1)
+    if (entity.use_count() == 1 && ReuseEntities())
     {
       entity->OnEntityReleased -= mOnEntityReleasedCache;
       mReusableEntities.push(entity.get());
@@ -142,11 +146,22 @@ namespace entitas
 
     mEntities.clear();
 
+    while (! mReusableEntities.empty() )
+    {
+      delete mReusableEntities.top();
+      mReusableEntities.pop();
+    }
+
     if (! mRetainedEntities.empty())
     {
       // Try calling Pool.ClearGroups() and SystemContainer.ClearReactiveSystems() before calling pool.DestroyAllEntities() to avoid memory leaks
       throw EntitiesRetained(mRetainedEntities.size());
     }
+  }
+
+  auto Pool::ReuseEntities() const -> bool
+  {
+    return mReuseEntities;
   }
 
   auto Pool::GetEntities() -> std::vector<EntityPtr>
@@ -329,6 +344,7 @@ namespace entitas
     }
 
     mRetainedEntities.erase(entity);
-    mReusableEntities.push(entity);
+    if (ReuseEntities())
+      mReusableEntities.push(entity);
   }
 }

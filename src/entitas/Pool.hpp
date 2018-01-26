@@ -26,7 +26,8 @@ namespace entitas
     };
 
   public:
-    Pool(const unsigned int startCreationIndex = 0);
+    Pool(const unsigned int startCreationIndex = 0,
+         const bool reuseEntities = false);
     ~Pool();
 
     auto CreateEntity() -> EntityPtr;
@@ -34,6 +35,7 @@ namespace entitas
     void DestroyEntity(EntityPtr entity);
     void DestroyAllEntities();
 
+    auto ReuseEntities() const -> bool;
     auto GetEntities() -> std::vector<EntityPtr>;
     auto GetEntities(const Matcher matcher) -> std::vector<EntityPtr>;
     auto GetGroup(Matcher matcher) -> std::shared_ptr<Group>;
@@ -66,6 +68,7 @@ namespace entitas
     void OnEntityReleased(Entity* entity);
 
     unsigned int mCreationIndex;
+    bool mReuseEntities;
     std::unordered_set<EntityPtr> mEntities;
     std::unordered_map<Matcher, std::shared_ptr<Group>> mGroups;
     std::stack<Entity*> mReusableEntities;
