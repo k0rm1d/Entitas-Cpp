@@ -18,6 +18,14 @@ namespace entitas
   class Pool
   {
   public:
+    class EntitiesRetained
+      : public std::runtime_error
+    {
+    public:
+      EntitiesRetained(const int count);
+    };
+
+  public:
     Pool(const unsigned int startCreationIndex = 0);
     ~Pool();
 

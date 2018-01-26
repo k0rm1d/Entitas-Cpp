@@ -7,9 +7,15 @@
 #include "ISystem.hpp"
 #include "ReactiveSystem.hpp"
 #include <algorithm>
+#include <string>
 
 namespace entitas
 {
+  using namespace std::literals::string_literals;
+  Pool::EntitiesRetained::EntitiesRetained(const int count)
+    : std::runtime_error("Error, pool detected "s + std::to_string(count) + " retained entities although all entities got destroyed. Did you release all entities?")
+  {}
+
   Pool::Pool(const unsigned int startCreationIndex)
     : mCreationIndex(startCreationIndex)
     , mOnEntityReleasedCache(std::bind(&Pool::OnEntityReleased, this, std::placeholders::_1))
@@ -139,7 +145,7 @@ namespace entitas
     if (! mRetainedEntities.empty())
     {
       // Try calling Pool.ClearGroups() and SystemContainer.ClearReactiveSystems() before calling pool.DestroyAllEntities() to avoid memory leaks
-      throw std::runtime_error("Error, pool detected retained entities although all entities got destroyed. Did you release all entities?");
+      throw EntitiesRetained(mRetainedEntities.size());
     }
   }
 
