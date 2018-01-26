@@ -16,6 +16,10 @@ namespace entitas
     : std::runtime_error("Error, pool detected "s + std::to_string(count) + " retained entities although all entities got destroyed. Did you release all entities?")
   {}
 
+  Pool::UnknownEntity::UnknownEntity(const EntityWeakPtr)
+    : std::runtime_error("Error, cannot destroy entity. Pool does not contain entity.")
+  {}
+
   Pool::Pool(const unsigned int startCreationIndex,
              const bool reuseEntities)
     : mCreationIndex(startCreationIndex)
@@ -111,9 +115,7 @@ namespace entitas
   void Pool::DestroyEntity(EntityPtr entity)
   {
     if (! mEntities.erase(entity))
-    {
-      throw std::runtime_error("Error, cannot destroy entity. Pool does not contain entity.");
-    }
+      throw UnknownEntity(entity);
 
     mEntitiesCache.clear();
 

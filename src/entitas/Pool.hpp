@@ -25,6 +25,13 @@ namespace entitas
       EntitiesRetained(const int count);
     };
 
+    class UnknownEntity
+      : public std::runtime_error
+    {
+    public:
+      UnknownEntity(const EntityWeakPtr);
+    };
+
   public:
     Pool(const unsigned int startCreationIndex = 0,
          const bool reuseEntities = false);

@@ -13,6 +13,7 @@ namespace entitas
 {
   class Entity;
   using EntityPtr = std::shared_ptr<Entity>;
+  using EntityWeakPtr = std::weak_ptr<Entity>;
 
   class Entity
   {
